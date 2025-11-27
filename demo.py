@@ -1,35 +1,63 @@
+
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="AHK Demo Form", layout="centered")
+st.set_page_config(page_title="Autohotkey Demo - Multi Input", layout="centered")
 
-st.title("Autohotkey Use Case Demonstration Form")
+st.title("Autohotkey Use Case Demonstration")
+
+# Initialize persistent dataframe in session_state
+if "records" not in st.session_state:
+    st.session_state.records = []
 
 # ----- FORM -----
-with st.form("ahk_demo_form"):
-    text_value = st.text_input("Type Something (your shortcut-expanded text)")
-    
-    saved_option = st.selectbox(
-        "Choose a Category",
-        ["General", "Automation", "Productivity", "Other"]
-    )
+with st.form("ahk_form"):
+    st.subheader("Fill the form")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        text_value = st.text_input("Text Input (Ex: your shortcut output)")
+        category = st.selectbox(
+            "Choose Category",
+            ["General", "Automation", "Productivity", "Other"]
+        )
+        extra_text2 = st.text_input("Additional Notes 2")
+    with col2:
+        extra_text = st.text_input("Additional Notes")
+        priority = st.selectbox(
+            "Priority Level",
+            ["Low", "Medium", "High"]
+        )
+        extra_text3 = st.text_input("Additional Notes 3")
+        priority2 = st.selectbox(
+            "Priority Level 2",
+            ["Low", "Medium", "High"]
+        )
 
     submitted = st.form_submit_button("Submit")
 
-# ----- OUTPUT -----
+# ----- PROCESS FORM -----
 if submitted:
-    st.success("Form submitted!")
+    new_row = {
+        "Text": text_value,
+        "Notes": extra_text,
+        "Category": category,
+        "Priority": priority,
+        "Notes 2": extra_text2,
+        "Notes 3": extra_text3,
+        "Priority 2": priority2
+    }
 
-    # Create DataFrame
-    df = pd.DataFrame(
-        {
-            "Input Text": [text_value],
-            "Category": [saved_option]
-        }
-    )
+    # Append new row to existing list
+    st.session_state.records.append(new_row)
 
-    st.subheader("📊 Dashboard Output")
-    st.write("Here's what you submitted:")
+    st.success("Submitted successfully!")
+
+# ----- DATAFRAME OUTPUT -----
+if st.session_state.records:
+    st.subheader("📊 Dashboard – Collected Records")
+
+    df = pd.DataFrame(st.session_state.records)
     st.dataframe(df, use_container_width=True)
-
-    st.info("Next Step: This could simulate how Autohotkey saves and expands text.")
+else:
+    st.info("No submissions yet. Fill the form above.")
