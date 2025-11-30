@@ -26,7 +26,22 @@ This script lets you save any sequence of inputs and trigger them either at a sp
 3. When the scheduled time is reached, AutoHotkey sends all the inputs automatically—just like a gaming macro, but for real productivity.
 
 ## input-runapps-demo.ahk
-lets talk more detail tomorrow
+
+This script demonstrates how AutoHotkey can launch applications instantly using a single hotkey.
+Instead of searching, clicking, or navigating menus, you can bind any app to a shortcut and open it the moment you need it.
+
+### How it works
+1. You choose an application you often open (browser, notes app, IDE, anything).
+2. You assign a hotkey (e.g., Ctrl + Q, Alt + S, etc.).
+3. Whenever the hotkey is pressed, AutoHotkey launches the app immediately.
+It’s a tiny improvement, but it eliminates small delays that add up over a full workday.
 
 ## time-runapps-demo.ahk
-lets talk more detail tomorrow
+This script expands on the previous idea by letting AutoHotkey run an application automatically based on time, without pressing anything.
+It’s useful for scheduled tasks—like opening your stock screener every morning, running a report, or preparing a tool before a meeting.
+
+### How it works
+1. You specify the application you want to run.
+2. You set a specific time or a repeated interval (e.g., every hour).
+3. When the trigger time arrives, AutoHotkey launches the app in the background.
+This is the foundation for building fully automated workflows—apps that prepare themselves before you even sit down.
